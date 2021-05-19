@@ -12,7 +12,23 @@ include('../../model/data-index/public_model.php');
 
 include ('../tenant_api/check_token.php');
 
+//$data = json_decode(file_get_contents("php://input"));
 $property_id = null;
+
+//$chouse_id = $data->chouse_id;
+//$ptype_id = $data->ptype_id;
+//$caption = $data->caption;
+//$kind_id = $data->kind_id;
+//$city_id = $data->city_id;
+//$district_id = $data->district_id;
+//$ward_id = $data->ward_id;
+//$street = $data->street;
+//$apartment_number = $data->apartment_number;
+//$estimated_price = $data->estimated_price;
+//$land_area = $data->land_area;
+//$description = $data->description;
+//$day_number = $data->day_number;
+
 $chouse_id = filter_input(INPUT_POST, 'chouse_id');
 $ptype_id = filter_input(INPUT_POST, 'ptype_id');
 $caption = filter_input(INPUT_POST, 'caption');
