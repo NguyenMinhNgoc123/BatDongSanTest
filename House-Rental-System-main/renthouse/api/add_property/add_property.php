@@ -66,37 +66,37 @@ if (empty($token)) {
 } else if (empty($caption)) {
     echo json_encode(array('errors' => 'Không được để trống trường Tiêu đề'));
 } else {
-    if (empty($file = $_FILES['p_photo'])) {
-        echo json_encode(array('errors' => 'Bạn cần phải có ảnh'));
-    } else if (empty($file['name'][2])) {
-        echo json_encode(array('errors' => 'Bạn cần phải có ít nhất 3 ảnh'));
-    } else {
-        if (isset($file['name'][2])) {
+//    if (empty($file = $_FILES['p_photo'])) {
+//        echo json_encode(array('errors' => 'Bạn cần phải có ảnh'));
+//    } else if (empty($file['name'][2])) {
+//        echo json_encode(array('errors' => 'Bạn cần phải có ít nhất 3 ảnh'));
+//    } else {
+        //if (isset($file['name'][2])) {
             $tenant_id = $checkToken['tenant_id'];
-
+//print_r($_FILES['p_photo']);die();
             $add_apartment = productAddDB::CreateAddProducts($property_id, $tenant_id,$kind_id, $caption, $chouse_id, $ptype_id,
                 $city_id, $district_id, $ward_id, $street, $apartment_number, $estimated_price, $land_area, $description);
             $db = Database::getDB();
             $last_id = $db->lastInsertId();
             //$file = $_FILES['p_photo'];
 
-            $filename = $file['tmp_name'];//lấy tên của ảnh
-            $type = $file['type'];
-            foreach ($filename as $key => $value) {
-                if ($type[$key] == 'image/jpeg' || $type[$key] == 'image/jpg' || $type[$key] == 'image/png') {
-                    $name_img = uniqid() . '.jpg';
-                    $path = '../../owner/product-photo/' . $name_img;
-                    $where = 'owner/product-photo/' . $name_img;
-
-                    $image = file_get_contents($value);
-                    $image = imagecreatefromstring($image);
-
-                    imagejpeg($image, $path);
-                    imagedestroy($image);
-                    $p_photo = $where;
-                    productAddDB::getImgage($p_photo, $last_id);
-                }
-            }
+//            $filename = $file['tmp_name'];//lấy tên của ảnh
+//            $type = $file['type'];
+//            foreach ($filename as $key => $value) {
+//                if ($type[$key] == 'image/jpeg' || $type[$key] == 'image/jpg' || $type[$key] == 'image/png') {
+//                    $name_img = uniqid() . '.jpg';
+//                    $path = '../../owner/product-photo/' . $name_img;
+//                    $where = 'owner/product-photo/' . $name_img;
+//
+//                    $image = file_get_contents($value);
+//                    $image = imagecreatefromstring($image);
+//
+//                    imagejpeg($image, $path);
+//                    imagedestroy($image);
+//                    $p_photo = $where;
+//                    productAddDB::getImgage($p_photo, $last_id);
+//                }
+//            }
             $status = 'unpaid';
             date_default_timezone_set('Asia/Ho_Chi_Minh');
             $status_expires = date('Y/m/d H:i:s',strtotime('+ 3 days'));
@@ -120,12 +120,12 @@ if (empty($token)) {
                 $rank = 'Bạn là khách hàng hạng '.$checkPotentials['name'].' được giảm giá '.$checkPotentials['discount'].'%';
 
             }
-        }
+        //}
         echo json_encode(array(
             'rank'=>$rank,
             'success' => 'Đã tạo thành công - Hãy thanh toán : '.$result.' Để admin có thể duyệt bài',
             'last_id' => $last_id,
             'apartment' => 'thêm bài viết ok'
         ));
-    }
+    //}
 }
