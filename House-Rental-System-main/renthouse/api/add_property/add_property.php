@@ -88,11 +88,8 @@ if (empty($token)) {
                     $path = '../../owner/product-photo/' . $name_img;
                     $where = 'owner/product-photo/' . $name_img;
 
-                    $image = file_get_contents($value);
-                    $image = imagecreatefromstring($image);
+                    move_uploaded_file($value,$path);
 
-                    imagejpeg($image, $path);
-                    imagedestroy($image);
                     $p_photo = $where;
                     productAddDB::getImgage($p_photo, $last_id);
                 }
