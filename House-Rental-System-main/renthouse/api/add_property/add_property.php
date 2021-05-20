@@ -51,41 +51,41 @@ if (empty($token)) {
     echo json_encode(array('errors' => 'Bạn cần phải đăng nhập'));
 } else if (empty($checkToken)) {
     echo json_encode(array('errors' => 'Token không hợp lệ'));
-//} else if (empty($city_id)) {
-//    echo json_encode(array('errors' => 'Không được để trống trường thành phố'));
-//} else if (empty($district_id)) {
-//    echo json_encode(array('errors' => 'Không được để trống trường Quận huyện'));
-//} else if (empty($ward_id)) {
-//    echo json_encode(array('errors' => 'Không được để trống trường phường xã'));
-//}else if (empty($estimated_price)) {
-//    echo json_encode(array('errors' => 'Không được để trống trường Giá'));
-//} else if (is_numeric($estimated_price) == false) {
-//    echo json_encode(array('errors' => 'Không được nhập chữ trong trường giá tiền'));
-//} else if (empty($land_area)) {
-//    echo json_encode(array('errors' => 'Không được để trống trường diện tích sử dụng'));
-//} else if (empty($caption)) {
-//    echo json_encode(array('errors' => 'Không được để trống trường Tiêu đề'));
+} else if (empty($city_id)) {
+    echo json_encode(array('errors' => 'Không được để trống trường thành phố'));
+} else if (empty($district_id)) {
+    echo json_encode(array('errors' => 'Không được để trống trường Quận huyện'));
+} else if (empty($ward_id)) {
+    echo json_encode(array('errors' => 'Không được để trống trường phường xã'));
+}else if (empty($estimated_price)) {
+    echo json_encode(array('errors' => 'Không được để trống trường Giá'));
+} else if (is_numeric($estimated_price) == false) {
+    echo json_encode(array('errors' => 'Không được nhập chữ trong trường giá tiền'));
+} else if (empty($land_area)) {
+    echo json_encode(array('errors' => 'Không được để trống trường diện tích sử dụng'));
+} else if (empty($caption)) {
+    echo json_encode(array('errors' => 'Không được để trống trường Tiêu đề'));
 } else {
-//    if (empty($file = $_FILES['p_photo'])) {
-//        echo json_encode(array('errors' => 'Bạn cần phải có ảnh'));
-//    } else if (empty($file['name'][2])) {
-//        echo json_encode(array('errors' => 'Bạn cần phải có ít nhất 3 ảnh'));
-//    } else {
-        //$file = $_FILES['p_photo'];
+    if (empty($file = $_FILES['p_photo'])) {
+        echo json_encode(array('errors' => 'Bạn cần phải có ảnh'));
+    } else if (empty($file['name'][2])) {
+        echo json_encode(array('errors' => 'Bạn cần phải có ít nhất 3 ảnh'));
+    } else {
+        $file = $_FILES['p_photo'];
 
-        //if (isset($file['name'][2])) {
-//            $tenant_id = $checkToken['tenant_id'];
+        if (isset($file['name'][2])) {
+            $tenant_id = $checkToken['tenant_id'];
 //print_r($_FILES['p_photo']);die();
-//            $add_apartment = productAddDB::CreateAddProducts($property_id, $tenant_id,$kind_id, $caption, $chouse_id, $ptype_id,
-//                $city_id, $district_id, $ward_id, $street, $apartment_number, $estimated_price, $land_area, $description);
-//            $db = Database::getDB();
-//            $last_id = $db->lastInsertId();
-            //$file = $_FILES['p_photo'];
+            $add_apartment = productAddDB::CreateAddProducts($property_id, $tenant_id,$kind_id, $caption, $chouse_id, $ptype_id,
+                $city_id, $district_id, $ward_id, $street, $apartment_number, $estimated_price, $land_area, $description);
+            $db = Database::getDB();
+            $last_id = $db->lastInsertId();
+            $file = $_FILES['p_photo'];
 
-            //$filename = $file['tmp_name'];//lấy tên của ảnh
-            //$type = $file['type'];
+            $filename = $file['tmp_name'];//lấy tên của ảnh
+            $type = $file['type'];
             foreach ($_FILES['p_photo']['tmp_name'] as $key => $value) {
-                //if ($type[$key] == 'image/jpeg' || $type[$key] == 'image/jpg' || $type[$key] == 'image/png') {
+                if ($type[$key] == 'image/jpeg' || $type[$key] == 'image/jpg' || $type[$key] == 'image/png') {
                     $name_img = uniqid() . '.jpg';
                     $path = '../../owner/product-photo/' . $name_img;
                     $where = 'owner/product-photo/' . $name_img;
@@ -94,42 +94,41 @@ if (empty($token)) {
 
                     $p_photo = $where;
                     productAddDB::getImgage($p_photo, $last_id = '117');
-                //}
+                }
             }
-//            $status = 'unpaid';
-//            date_default_timezone_set('Asia/Ho_Chi_Minh');
-//            $status_expires = date('Y/m/d H:i:s',strtotime('+ 3 days'));
-//            $start_status = date('Y/m/d H:i:s');
-//            $kind_price = productDB::getKindNews($kind_id);
-//
-//            $checkTenant = Check_existDB::checkTenant($tenant_id);
-//            $checkPotentials = Check_existDB::checkGrade($checkTenant['grade_id']);
-//
-//            if ($checkPotentials != 0){
-//                if ($checkTenant['grade_id'] == $checkPotentials['grade_id']){
-//                    $price = ($day_number* $kind_price['price'])*((100-$checkPotentials['discount'])/100);
-//                    $rank = 'Bạn là khách hàng hạng '.$checkPotentials['name'].' được giảm giá '.$checkPotentials['discount'].'%';
-//
-//                }
-//            }else{
-//                $price = $day_number* $kind_price['price'];
-//                $rank = 'Bạn là khách thường chưa được giảm giá';
-//            }
-//            productAddDB::createPayment($last_id,$tenant_id,$kind_id,$day_number,$price,$status,$start_status,$status_expires);
-//            $result = productDB::getPrice($price);
-//            if ($checkTenant['grade_id'] != $checkPotentials['grade_id']){
-//                $rank = 'Bạn là khách thường chưa được giảm giá';
-//            }else{
-//                $rank = 'Bạn là khách hàng hạng '.$checkPotentials['name'].' được giảm giá '.$checkPotentials['discount'].'%';
-//
-//            }
-//        }
-//        echo json_encode(array(
-//            'rank'=>$rank,
-//            'success' => 'Đã tạo thành công - Hãy thanh toán : '.$result.' Để admin có thể duyệt bài',
-//            'last_id' => $last_id,
-//            'apartment' => 'thêm bài viết ok'
-//        ));
-//    }
-    echo json_encode(array('ok'=>'thêm thành công'));
+            $status = 'unpaid';
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $status_expires = date('Y/m/d H:i:s',strtotime('+ 3 days'));
+            $start_status = date('Y/m/d H:i:s');
+            $kind_price = productDB::getKindNews($kind_id);
+
+            $checkTenant = Check_existDB::checkTenant($tenant_id);
+            $checkPotentials = Check_existDB::checkGrade($checkTenant['grade_id']);
+
+            if ($checkPotentials != 0){
+                if ($checkTenant['grade_id'] == $checkPotentials['grade_id']){
+                    $price = ($day_number* $kind_price['price'])*((100-$checkPotentials['discount'])/100);
+                    $rank = 'Bạn là khách hàng hạng '.$checkPotentials['name'].' được giảm giá '.$checkPotentials['discount'].'%';
+
+                }
+            }else{
+                $price = $day_number* $kind_price['price'];
+                $rank = 'Bạn là khách thường chưa được giảm giá';
+            }
+            productAddDB::createPayment($last_id,$tenant_id,$kind_id,$day_number,$price,$status,$start_status,$status_expires);
+            $result = productDB::getPrice($price);
+            if ($checkTenant['grade_id'] != $checkPotentials['grade_id']){
+                $rank = 'Bạn là khách thường chưa được giảm giá';
+            }else{
+                $rank = 'Bạn là khách hàng hạng '.$checkPotentials['name'].' được giảm giá '.$checkPotentials['discount'].'%';
+
+            }
+        }
+        echo json_encode(array(
+            'rank'=>$rank,
+            'success' => 'Đã tạo thành công - Hãy thanh toán : '.$result.' Để admin có thể duyệt bài',
+            'last_id' => $last_id,
+            'apartment' => 'thêm bài viết ok'
+        ));
+    }
 }
