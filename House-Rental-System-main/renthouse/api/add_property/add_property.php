@@ -93,7 +93,7 @@ if (empty($token)) {
                     move_uploaded_file($value,$path);
 
                     $p_photo = $where;
-                    productAddDB::getImgage($p_photo, $last_id = '117');
+                    productAddDB::getImgage($p_photo, $last_id);
                 }
             }
             $status = 'unpaid';
