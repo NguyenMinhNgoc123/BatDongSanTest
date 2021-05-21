@@ -101,7 +101,7 @@ if (empty($token)) {
             $status_expires = date('Y/m/d H:i:s',strtotime('+ 3 days'));
             $start_status = date('Y/m/d H:i:s');
             $kind_price = productDB::getKindNews($kind_id);
-
+            $bank=productDB::getBank();
             $checkTenant = Check_existDB::checkTenant($tenant_id);
             $checkPotentials = Check_existDB::checkGrade($checkTenant['grade_id']);
 
@@ -117,18 +117,28 @@ if (empty($token)) {
             }
             productAddDB::createPayment($last_id,$tenant_id,$kind_id,$day_number,$price,$status,$start_status,$status_expires);
             $result = productDB::getPrice($price);
-            if ($checkTenant['grade_id'] != $checkPotentials['grade_id']){
+            if ($checkTenant['grade_id'] == 0){
                 $rank = 'Bạn là khách thường chưa được giảm giá';
             }else{
                 $rank = 'Bạn là khách hàng hạng '.$checkPotentials['name'].' được giảm giá '.$checkPotentials['discount'].'%';
 
             }
+            if ($ptype_id == 1){
+                $tp = 'NB';
+            }else{
+                $tp = 'NT';
+            }
         }
         echo json_encode(array(
             'rank'=>$rank,
-            'success' => 'Đã tạo thành công - Hãy thanh toán : '.$result.' Để admin có thể duyệt bài',
+            'success' => 'Đã tạo thành công',
             'last_id' => $last_id,
-            'apartment' => 'thêm bài viết ok'
+            'bank_name'=>$bank['bank_name'],
+            'name'=>$bank['name'],
+            'bank_number'=>$bank['bank_number'],
+            'price'=>$result,
+            'price_root'=>$price,
+            'ptype_id'=>$tp
         ));
     }
 }

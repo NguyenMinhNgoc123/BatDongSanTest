@@ -54,10 +54,10 @@ if (empty($token)) {
         //xử lý thanh toán
         if ($pm){
             if ($pm['status'] == 'unpaid') {
-                $status = 'Chưa thanh toán tiền bài viết';
+                $status = 'Chưa thanh toán';
             } else {
                 if ($pm['status'] == 'paid') {
-                    $status = 'Đã thanh toán tiền bài viết';
+                    $status = 'Đã thanh toán';
                 }
             }
             $payment_price = productDB::getPrice($pm['price']);
@@ -76,6 +76,8 @@ if (empty($token)) {
             'property_id' => $property_id,
             'tenant_id' => $value['tenant_id'],
             'ptype_id'=>$value['ptype_id'],
+            'street'=>$value['street'],
+            'apartment_number'=>$value['apartment_number'],
             'price_post' => $payment_price,
             'day_number'=>$day_number,
             'post_status' => $status,

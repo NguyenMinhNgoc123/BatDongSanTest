@@ -212,4 +212,20 @@ class productDB{
             exit();
         }
     }
+    public static function getBank(){
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from bank_account ";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
 }
