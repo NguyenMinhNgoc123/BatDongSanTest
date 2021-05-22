@@ -42,10 +42,10 @@ if (empty($token)) {
         //xử lý thanh toán
         if ($pm){
             if ($pm['status'] == 'unpaid') {
-                $status = 'Chưa thanh toán tiền bài viết';
+                $status = 'Chưa thanh toán ';
             } else {
                 if ($pm['status'] == 'paid') {
-                    $status = 'Đã thanh toán tiền bài viết';
+                    $status = 'Đã thanh toán ';
                 }
             }
             $payment_price = productDB::getPrice($pm['price']);
