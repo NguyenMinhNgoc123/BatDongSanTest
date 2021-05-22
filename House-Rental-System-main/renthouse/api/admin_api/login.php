@@ -40,6 +40,7 @@ foreach ($payment as $key => $value) {
                 dataDB::DeleteImage($value['property_id']);
                 dataDB::DeletePayment($value['property_id']);
                 dataDB::deleteProduct($value['property_id'], $note = '0');
+                dataDB::deleteProduct($value['property_id'], $note = '2');
             }
         } else {
             $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires . '. Hãy thanh toán để bài viết được duyệt nhé!';
@@ -133,6 +134,9 @@ foreach ($checkAddProperty as $key3 => $value3){
         }
     }
 }
+
+//-----------------------------------------------------------------------------------
+
 
 $data = json_decode(file_get_contents("php://input"));
 
