@@ -18,10 +18,9 @@ include ('../check_token.php');
 $property_id = isset($_GET['id']) ? $_GET['id'] : die();
 $data = [];
 $data['image'] = [];
-$note0='0';
-$note1='1';
-$note2='2';
-$detail = tenantDB::getProductDetails($property_id,$checkToken['tenant_id'],$note0,$note1,$note2);
+$note='1';
+
+$detail = tenantDB::getProductDetails($property_id,$checkToken['tenant_id'],$note);
 
 if (empty($token)) {
     echo json_encode(array('errors' => 'Bạn cần phải đăng nhập'));

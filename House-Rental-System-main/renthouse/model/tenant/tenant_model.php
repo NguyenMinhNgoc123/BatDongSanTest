@@ -202,15 +202,17 @@ class tenantDB
             exit();
         }
     }
-    public static function getProductDetails($property_id, $tenant_id, $note)
+    public static function getProductDetails($property_id, $tenant_id, $note0,$note1,$note2)
     {
         $db = Database::getDB();
         try {
-            $query1 = "select * from add_property where property_id =:property_id and tenant_id=:tenant_id and note=:note";
+            $query1 = "select * from add_property where property_id =:property_id and tenant_id=:tenant_id and (note=:note0 or note=:note1 or note=:note2)";
             $statement1 = $db->prepare($query1);
             $statement1->bindParam(':property_id', $property_id);
             $statement1->bindParam(':tenant_id', $tenant_id);
-            $statement1->bindParam(':note', $note);
+            $statement1->bindParam(':note0', $note0);
+            $statement1->bindParam(':note1', $note1);
+            $statement1->bindParam(':note2', $note2);
             $statement1->execute();
             $result1 = $statement1->fetch();
             $statement1->closeCursor();

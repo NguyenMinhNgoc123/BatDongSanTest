@@ -27,7 +27,7 @@ if (empty($token)) {
         $note='0';
         $update_note = date('Y/m/d H:i:s');
         tenantDB::continueProduct($property_id,$note,$update_note);
-
+        echo json_encode(array('success' => 'Gia hạn thành công .Hãy thanh toán để được duyệt bài'));
     }else{
         echo json_encode(array('success' => 'bài viết chưa hết hạn hoặc id không tồn tại'));
     }
