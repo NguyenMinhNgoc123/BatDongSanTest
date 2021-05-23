@@ -18,6 +18,23 @@ class dataDB
             exit();
         }
     }
+    public static function getProductsNote1()
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from add_property where note='1'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetchAll();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
     public static function getImg($property_id)
     {
         $db = Database::getDB();
@@ -35,7 +52,41 @@ class dataDB
             exit();
         }
     }
-
+    public static function updateProducts($property_id,$chouse_id,$ptype_id,$caption,$kind_id,$city_id,$district_id,$ward_id,$street,$apartment_number,$estimated_price,$land_area,$description)
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "UPDATE add_property SET chouse_id='$chouse_id',ptype_id='$ptype_id',caption='$caption',kind_id='$kind_id',city_id='$city_id',district_id='$district_id',ward_id='$ward_id',street='$street',apartment_number='$apartment_number',estimated_price='$estimated_price',land_area='$land_area',description='$description' WHERE property_id='$property_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->rowCount();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
+    public static function getdetails($property_id,$note)
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from add_property where property_id =:property_id and note=:note";
+            $statement1 = $db->prepare($query1);
+            $statement1->bindParam(':property_id', $property_id);
+            $statement1->bindParam(':note', $note);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
     public static function getListCheck($property_id,$note)
     {
         $db = Database::getDB();

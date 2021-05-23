@@ -12,7 +12,7 @@ include('../../../model/admin/admin_model.php');
 include ('../check_token_admin.php');
 
 $property_id = isset($_GET['id']) ? $_GET['id'] : die();
-$note='0';
+$note='1';
 $list = dataDB::getListCheck($property_id,$note);
 $unlink = tenantDB::ListImage($property_id);
 if (empty($token)) {
@@ -30,7 +30,7 @@ if (empty($token)) {
             }
         }
     }
-    $note ='0';
+    $note ='1';
     dataDB::DeletePayment($property_id);
     dataDB::deleteNotifyNotType($property_id);
     dataDB::DeleteImage($property_id);

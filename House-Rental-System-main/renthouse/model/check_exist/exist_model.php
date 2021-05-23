@@ -138,6 +138,38 @@ class Check_existDB{
             exit();
         }
     }
+    public static function checkExistPropertyType($chouse_id){
+        $db = Database::getDB();
+        try {
+            $query1 = "SELECT * FROM property_type WHERE chouse_id='$chouse_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 =$statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
+    public static function checkExistPostType($ptype_id){
+        $db = Database::getDB();
+        try {
+            $query1 = "SELECT * FROM post_type WHERE ptype_id='$ptype_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 =$statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
     public static function checkProperty($property_id){
         $db = Database::getDB();
         try {

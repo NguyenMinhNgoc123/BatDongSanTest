@@ -24,7 +24,7 @@ if (empty($token)) {
 } else if (empty($checkTokenAdmin)) {
     echo json_encode(array('errors' => 'Token không hợp lệ'));
 } else {
-    $list_product = dataDB::getProducts();
+    $list_product = dataDB::getProductsNote1();
 
     foreach ($list_product as $key => $value) {
 
