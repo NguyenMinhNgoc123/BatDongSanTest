@@ -20,6 +20,7 @@ if (empty($token)) {
     echo json_encode(array('errors' => 'id không hợp lệ'));
 } else {
     $tenant_id = $checkToken['tenant_id'];
+
     $exist = Check_existDB::checkExistProducts($property_id, $tenant_id);
     $unlink = tenantDB::ListImage($property_id);
     if ($exist > 0) {
@@ -32,12 +33,12 @@ if (empty($token)) {
             }
         }
         $image = tenantDB::DeleteImage($property_id);
-        if ($image > 0) {
+        tenantDB::DeletePayment($property_id);
+
             $products = tenantDB::DeleteProducts($property_id, $tenant_id);
             echo json_encode(array('success' => 'xóa thành công'));
-        } else {
-            echo json_encode(array('errors' => 'Sản phẩm không tồn tại'));
-        }
+
+
     } else {
         echo json_encode(array('errors' => 'Sản phẩm không sở hữu của bạn'));
     }

@@ -44,10 +44,14 @@ if (empty($token)) {
         $result = productDB::getPrice($value['estimated_price']);
 
         $result_img = ProductDBSell::getImgAvatar($property_id);
-        foreach ($result_img as $key_img => $value_img) {
-            if ($key_img == 1) {
-                $img = $value_img['p_photo'];
+        if ($result_img){
+            foreach ($result_img as $key_img => $value_img) {
+                if ($key_img == 1) {
+                    $img = $value_img['p_photo'];
+                }
             }
+        }else{
+            $img =null;
         }
         //xử lý giờ
         $time = productDB::getTime($value['create_at']);
