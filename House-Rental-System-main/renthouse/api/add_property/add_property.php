@@ -51,6 +51,8 @@ if (empty($token)) {
     echo json_encode(array('errors' => 'Bạn cần phải đăng nhập'));
 } else if (empty($checkToken)) {
     echo json_encode(array('errors' => 'Token không hợp lệ'));
+} else if (empty($kind_id)) {
+    echo json_encode(array('errors' => 'Không được để trống trường loại tin'));
 } else if (empty($city_id)) {
     echo json_encode(array('errors' => 'Không được để trống trường thành phố'));
 } else if (empty($district_id)) {
@@ -65,7 +67,9 @@ if (empty($token)) {
     echo json_encode(array('errors' => 'Không được để trống trường diện tích sử dụng'));
 } else if (empty($caption)) {
     echo json_encode(array('errors' => 'Không được để trống trường Tiêu đề'));
-} else {
+} else if (empty($day_number)) {
+    echo json_encode(array('errors' => 'Không được để trống trường ngày hiển thị'));
+}else {
     if (empty($file = $_FILES['p_photo'])) {
         echo json_encode(array('errors' => 'Bạn cần phải có ảnh'));
     } else if (empty($file['name'][2])) {

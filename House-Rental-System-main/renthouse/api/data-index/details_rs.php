@@ -31,8 +31,12 @@ if ($detail_rs > 0) {
         );
         array_push($data['image'], $img);
     }
+    if ($detail_rs['update_note'] =='0000-00-00 00:00:00'){
+        $time = 'chưa duyệt';
+    }else{
+        $time = productDB::getTime($detail_rs['update_note']);
+    }
 
-    $time = productDB::getTime($detail_rs['update_note']);
     $phone = tenantDB::getProfile($detail_rs['tenant_id']);
     $chouse_name =productDB::getPropertyType($detail_rs['chouse_id']);
     //print_r($chouse_name['property_typeName']);die();
@@ -54,6 +58,7 @@ if ($detail_rs > 0) {
         'post_time' => $time,
         'name'=>$phone['full_name'],
         'phone'=>$phone['phone_no'],
+        'sex'=>$phone['sex'],
         'google_map'=>$google_map,
         'img' => $data
     );
