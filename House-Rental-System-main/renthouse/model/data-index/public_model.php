@@ -35,7 +35,7 @@ class productDB{
     public static function getProductDetails($property_id){
         $db = Database::getDB();
         try {
-            $query1 = "select * from add_property where property_id =:property_id and note='1'";
+            $query1 = "select * from add_property where property_id =:property_id and (note='1' or note='0')";
             $statement1 = $db->prepare($query1);
             $statement1->bindParam(':property_id',$property_id);
             $statement1->execute();
