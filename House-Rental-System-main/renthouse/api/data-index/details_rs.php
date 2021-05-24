@@ -36,7 +36,7 @@ if ($detail_rs > 0) {
     }else{
         $time = productDB::getTime($detail_rs['update_note']);
     }
-
+    $price = productDB::getPrice($detail_rs['estimated_price']);
     $phone = tenantDB::getProfile($detail_rs['tenant_id']);
     $chouse_name =productDB::getPropertyType($detail_rs['chouse_id']);
     //print_r($chouse_name['property_typeName']);die();
@@ -52,7 +52,8 @@ if ($detail_rs > 0) {
         'wardName' => $wardName['wardName'],
         'street' => $detail_rs['street'],
         'apartment_number' => $detail_rs['apartment_number'],
-        'estimated_price' => $detail_rs['estimated_price'],
+        'estimated_price' => $price,
+        'estimated_price_1' => $detail_rs['estimated_price'],
         'land_area' => $detail_rs['land_area'],
         'description' => $detail_rs['description'],
         'post_time' => $time,

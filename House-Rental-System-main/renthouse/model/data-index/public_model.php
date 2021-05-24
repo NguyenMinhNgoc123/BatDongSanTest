@@ -176,7 +176,7 @@ class productDB{
             $number_fm1 = strlen($number);
             //xử lý tiền
             if ($number_fm1 > 9) {
-                $number_fm2 = round(($number / 1000000000), 2);
+                $number_fm2 = round(($number / 1000000000), 3);
                 $result = $number_fm2 . ' tỷ';
             } elseif ($number_fm1 > 6) {
                 $number_fm2 = round(($number / 1000000), 2);
