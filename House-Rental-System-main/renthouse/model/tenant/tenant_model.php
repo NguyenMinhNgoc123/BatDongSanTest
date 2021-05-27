@@ -91,11 +91,11 @@ class tenantDB
         }
     }
 
-    public static function Update($tenant_id, $full_name, $phone_no, $address, $id_photo, $sex)
+    public static function Update($tenant_id, $full_name, $phone_no, $sex)
     {
         $db = Database::getDB();
         try {
-            $query1 = "UPDATE tenant SET full_name='$full_name',phone_no='$phone_no',address='$address',sex_id='$sex',id_photo='$id_photo' WHERE tenant_id='$tenant_id'";
+            $query1 = "UPDATE tenant SET full_name='$full_name',phone_no='$phone_no',sex='$sex' WHERE tenant_id='$tenant_id'";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->closeCursor();
