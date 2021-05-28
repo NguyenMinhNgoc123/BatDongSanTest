@@ -599,5 +599,79 @@ class dataDB
             exit();
         }
     }
+    public static function postEnquiry($full_name,$email,$phone_no,$description,$create_at,$status){
+        $db = Database::getDB();
+        try {
+            $query1 = "INSERT INTO post_enquiry (id,full_name,email,phone_no,description,status,create_at) values(null,'$full_name','$email','$phone_no','$description','$status','$create_at')";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $statement1->closeCursor();
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
+    public static function postEnquirycheck($full_name,$email,$phone_no,$description){
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from post_enquiry where full_name='$full_name' and email='$email' and phone_no='$phone_no' and description='$description'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->rowCount();
+            $statement1->closeCursor();
+            return $result1;
 
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
+    public static function getPostEnquiry(){
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from post_enquiry where create_at < now()";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->fetchAll();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
+    public static function EnquiryCheck($id){
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from post_enquiry where id ='$id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
+    public static function updateEnquiry($id,$feedback,$status){
+        $db = Database::getDB();
+        try {
+            $query1 = "UPDATE post_enquiry SET feedback='$feedback',status='$status' WHERE id='$id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $statement1->closeCursor();
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
 }

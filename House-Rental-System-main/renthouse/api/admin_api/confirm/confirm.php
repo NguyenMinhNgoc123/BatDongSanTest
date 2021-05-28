@@ -3,7 +3,6 @@ header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Headers:*');
 header('Content-type: application/json; charset=utf-8');
 header('Access-Control-Allow-Methods: GET,DELETE,PUT,POST');
-header('Access-Control-Allow-Headers:Access-Control-Allow-Headers,Content-type,Access-Control-Allow-Methods,Authorization,X-Requested-With');
 
 include('../../../config/database.php');
 include('../../../model/tenant/tenant_model.php');
