@@ -17,7 +17,7 @@ $full_name = $data->full_name;
 $phone_no = $data->phone_no;
 $sex = $data->sex;
 
-$check_phone = Check_existDB::checkPhone($phone_no);
+$check_phone = Check_existDB::checkPhoneUpdate($checkToken['tenant_id'],$phone_no);
 
 $profile = tenantDB::getProfile($checkToken['tenant_id']);
 if (empty($token)) {

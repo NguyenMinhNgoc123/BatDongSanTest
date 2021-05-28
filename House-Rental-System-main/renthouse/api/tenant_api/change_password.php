@@ -20,8 +20,8 @@ if (empty($token)) {
     echo json_encode(array('errors' => 'Bạn cần phải đăng nhập'));
 } else if (empty($checkToken)) {
     echo json_encode(array('errors' => 'Token không hợp lệ'));
-}else if (strlen($new_password) < 6) {
-    echo json_encode(array('errors' => 'Mật khẩu phải 6 kí tự trở lên'));
+} else if (strlen($new_password) < 7) {
+    echo json_encode(array('errors' => 'Mật khẩu phải 8 kí tự trở lên'));
 } else{
     $tenant_id =$checkToken['tenant_id'];
     $checkTenant = Check_existDB::checkTenant($tenant_id);
@@ -34,18 +34,23 @@ if (empty($token)) {
             echo json_encode(array('success' => 'Đổi mật khẩu thành công'));
         }
     }else{
-        $password = md5($password);
-        $checkPass = Check_existDB::checkPassword($tenant_id,$password);
-        if ($checkPass > 0){
-            if ($new_password != $confirm_password){
-                echo json_encode(array('errors' => 'Mật khẩu mới không trùng nhau'));
+        if (!empty($password)){
+            $password = md5($password);
+            $checkPass = Check_existDB::checkPassword($tenant_id,$password);
+            if ($checkPass > 0){
+                if ($new_password != $confirm_password){
+                    echo json_encode(array('errors' => 'Mật khẩu mới không trùng nhau'));
+                }else{
+                    $new_password =md5($new_password);
+                    tenantDB::changPassword($tenant_id,$new_password);
+                    echo json_encode(array('success' => 'Đổi mật khẩu thành công'));
+                }
             }else{
-                $new_password =md5($new_password);
-                tenantDB::changPassword($tenant_id,$new_password);
-                echo json_encode(array('success' => 'Đổi mật khẩu thành công'));
+                echo json_encode(array('errors' => 'Mật khẩu cũ không khớp'));
             }
         }else{
-            echo json_encode(array('errors' => 'Mật khẩu cũ không khớp'));
+            echo json_encode(array('errors' => 'Mật khẩu hiện tại bị trống'));
         }
+
     }
 }

@@ -30,6 +30,21 @@ class Check_existDB{
             exit();
         }
     }
+    public static function checkPhoneUpdate($tenant_id,$phone_no){
+        $db = Database::getDB();
+        try {
+            $query1 = "SELECT * FROM tenant WHERE phone_no='$phone_no' except SELECT * FROM tenant WHERE tenant_id ='$tenant_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->rowCount();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
     public static function checkTokenTenant($tenant_id){
         $db = Database::getDB();
         try {
