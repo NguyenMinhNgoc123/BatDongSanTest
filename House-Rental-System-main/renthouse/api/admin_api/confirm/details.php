@@ -32,8 +32,7 @@ if (empty($token)) {
     $cityName = ProductDB::getCityName($detail['city_id']);
     $districtName = ProductDB::getDistrictName($detail['district_id']);
     $wardName = ProductDB::getWardName($detail['ward_id']);
-
-
+    $kind_name = ProductDB::getKindNews($detail['kind_id']);
     $price = productDB::getPrice($detail['estimated_price']);
     $time = productDB::getTime($detail['create_at']);
     $chouse_name =productDB::getPropertyType($detail['chouse_id']);
@@ -58,6 +57,8 @@ if (empty($token)) {
         'tenant_id' => $detail['tenant_id'],
         'chouse_name' => $chouse_name['property_typeName'],
         'chouse_id'=>$detail['chouse_id'],
+        'kind_id'=> $detail['kind_id'],
+        'kind_name'=>$kind_name['name'],
         'caption' => $detail['caption'],
         'ptypeName' => $ptypeName['ptypeName'],
         'ptype_id'=>$detail['ptype_id'],
