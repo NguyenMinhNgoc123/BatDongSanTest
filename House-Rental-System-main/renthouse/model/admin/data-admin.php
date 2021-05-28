@@ -674,4 +674,18 @@ class dataDB
             exit();
         }
     }
+    public static function DelelteEnquiry($id){
+        $db = Database::getDB();
+        try {
+            $query1 = "DELETE FROM post_enquiry WHERE id='$id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $statement1->closeCursor();
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
 }
