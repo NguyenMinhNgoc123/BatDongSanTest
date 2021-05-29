@@ -59,6 +59,7 @@ if (isset($_GET['page']) && isset($_GET['row_per_page'])) {
             $list_product = ProductDBSell::getProductsSearchCity($begin, $row_per_page, $caption, $city_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
         }
         if (empty($city_id) && empty($district_id) && empty($ward_id)){
+            print_r($price_begin);die();
             $list_product = ProductDBSell::getProductsSearchNot($begin, $row_per_page, $caption, $price_begin, $price_end, $land_area_begin, $land_area_end);
         }
 

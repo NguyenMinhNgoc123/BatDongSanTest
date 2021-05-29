@@ -50,9 +50,9 @@ if (empty($token)) {
             $payment_price=null;
             $day_number=null;
         }
-//        $cityName = ProductDB::getCityName($value['city_id']);
-//        $districtName = ProductDB::getDistrictName($value['district_id']);
-//        $wardName = ProductDB::getWardName($value['ward_id']);
+        $cityName = ProductDB::getCityName($value['city_id']);
+        $districtName = ProductDB::getDistrictName($value['district_id']);
+        $wardName = ProductDB::getWardName($value['ward_id']);
         $email = tenantDB::getProfile($value['tenant_id']);
         $chouse_name = productDB::getPropertyType($value['chouse_id']);
         $post_type_name = productDB::getProductPtype($value['ptype_id']);
@@ -72,11 +72,11 @@ if (empty($token)) {
             'name'=>$email['full_name'],
             'phone'=>$email['phone_no'],
             'chouse_name' => $chouse_name['property_typeName'],
-//            'cityName' => $cityName['cityName'],
-//            'districtName' => $districtName['districtName'],
-//            'wardName' => $wardName['wardName'],
-//            'street' => $value['street'],
-//            'apartment_number' => $value['apartment_number'],
+            'cityName' => $cityName['cityName'],
+            'districtName' => $districtName['districtName'],
+            'wardName' => $wardName['wardName'],
+            'street' => $value['street'],
+            'apartment_number' => $value['apartment_number'],
             'ptype_name' => $post_type_name['ptypeName'],
             'land_area' => $land_area,
             'estimated_price' => $result,
