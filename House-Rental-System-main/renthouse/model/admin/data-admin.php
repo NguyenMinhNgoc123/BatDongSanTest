@@ -35,6 +35,20 @@ class dataDB
             exit();
         }
     }
+    public static function editImg($property_photo_id,$property_id,$p_photo)
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "UPDATE property_photo SET p_photo='$p_photo' WHERE property_id='$property_id' and property_photo_id='$property_photo_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->closeCursor();
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
     public static function getImg($property_id)
     {
         $db = Database::getDB();

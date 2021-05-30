@@ -247,4 +247,20 @@ class Check_existDB{
             exit();
         }
     }
+    public static function checkPropertyPhoto($property_photo_id){
+        $db = Database::getDB();
+        try {
+            $query1 = "SELECT * FROM property_photo WHERE property_photo_id='$property_photo_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
 }

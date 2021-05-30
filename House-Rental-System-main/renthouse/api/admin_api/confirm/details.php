@@ -45,7 +45,7 @@ if (empty($token)) {
             $property_id_img = $value1['property_id'];
             $image = $value1['p_photo'];
             $img = array(
-                'property_id' => $property_id_img,
+                'property_photo_id' => $value1['property_photo_id'],
                 'image' => $image
             );
             array_push($data['image'], $img);

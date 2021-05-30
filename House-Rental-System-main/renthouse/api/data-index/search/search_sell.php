@@ -11,6 +11,7 @@ include('../../../model/data-index/sell_rs_model.php');
 
 $data = json_decode(file_get_contents("php://input"));
 
+$chouse_id=$data->chouse_id;
 $caption = $data->caption_s;
 $city_id = $data->city_id_s;
 $district_id = $data->district_id_s;
@@ -48,19 +49,38 @@ if (isset($_GET['page']) && isset($_GET['row_per_page'])) {
         }
 
         if (isset($city_id) && isset($district_id) && isset($ward_id)) {
-            $list_product = ProductDBSell::getProductsSearchAll($begin, $row_per_page, $caption, $city_id, $district_id, $ward_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            if (isset($chouse_id)){
+                $list_product = ProductDBSell::getProductsSearchAllChouse($chouse_id,$begin, $row_per_page, $caption, $city_id, $district_id, $ward_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            }else{
+                $list_product = ProductDBSell::getProductsSearchAll($begin, $row_per_page, $caption, $city_id, $district_id, $ward_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+
+            }
         }
 
         if (isset($city_id) && isset($district_id) && (empty($ward_id) || $ward_id == null || $ward_id == ' ')) {
-            $list_product = ProductDBSell::getProductsSearchCityDistrict($begin, $row_per_page, $caption, $city_id, $district_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            if (isset($chouse_id)){
+                $list_product = ProductDBSell::getProductsSearchCityDistrictChouse($chouse_id,$begin, $row_per_page, $caption, $city_id, $district_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            }else{
+                $list_product = ProductDBSell::getProductsSearchCityDistrict($begin, $row_per_page, $caption, $city_id, $district_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+
+            }
         }
 
         if (isset($city_id) && (empty($district_id) || $district_id == null || $district_id == ' ') && (empty($ward_id) || $ward_id == null || $ward_id == ' ')) {
-            $list_product = ProductDBSell::getProductsSearchCity($begin, $row_per_page, $caption, $city_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            if (isset($chouse_id)){
+                $list_product = ProductDBSell::getProductsSearchCityChouse($chouse_id,$begin, $row_per_page, $caption, $city_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            }else{
+                $list_product = ProductDBSell::getProductsSearchCity($begin, $row_per_page, $caption, $city_id, $price_begin, $price_end, $land_area_begin, $land_area_end);
+
+            }
         }
         if (empty($city_id) && empty($district_id) && empty($ward_id)){
-            print_r($price_begin);die();
-            $list_product = ProductDBSell::getProductsSearchNot($begin, $row_per_page, $caption, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            if (isset($chouse_id)) {
+                $list_product = ProductDBSell::getProductsSearchNotChouse($chouse_id,$begin, $row_per_page, $caption, $price_begin, $price_end, $land_area_begin, $land_area_end);
+            }else{
+                $list_product = ProductDBSell::getProductsSearchNot($begin, $row_per_page, $caption, $price_begin, $price_end, $land_area_begin, $land_area_end);
+
+            }
         }
 
 
