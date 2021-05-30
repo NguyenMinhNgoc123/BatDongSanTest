@@ -81,7 +81,7 @@ if (empty($token)) {
             'land_area' => $land_area,
             'estimated_price' => $result,
             //'description' => $value['description'],
-            //'image' => $result_img,
+            'day_number'=>$status['day_number'],
             'payment'=>$payment_price,
             'payment_status'=>$status_pm,
             'post_time' => $value['create_at'],

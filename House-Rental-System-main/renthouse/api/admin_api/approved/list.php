@@ -84,7 +84,8 @@ if (empty($token)) {
             //'image' => $result_img,
             'payment'=>$payment_price,
             'payment_status'=>$status_pm,
-            'post_time' => $value['create_at'],
+            'day_number'=>$payment['day_number'],
+            'post_time' => $value['update_note'],
             'note' => $value['note']
         );
         array_push($data['list'], $data_product);

@@ -37,6 +37,7 @@ if (empty($token)) {
     $time = productDB::getTime($detail['create_at']);
     $chouse_name =productDB::getPropertyType($detail['chouse_id']);
     $phone = tenantDB::getProfile($detail['tenant_id']);
+    $status = dataDB::selectPayment($property_id);
     $image =tenantDB::ListImage($property_id);
     if ($image){
         foreach ($image as $key1 =>$value1){
@@ -73,6 +74,7 @@ if (empty($token)) {
         'estimated_price' => $price,
         'land_area' => $detail['land_area'],
         'description' => $detail['description'],
+        'day_number'=>$status['day_number'],
         'create_at' => $time,
         'img' => $data
     );
