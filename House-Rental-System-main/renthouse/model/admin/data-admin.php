@@ -613,10 +613,10 @@ class dataDB
             exit();
         }
     }
-    public static function postEnquiry($full_name,$email,$phone_no,$description,$create_at,$status){
+    public static function postEnquiry($property_id,$full_name,$email,$phone_no,$description,$create_at,$status){
         $db = Database::getDB();
         try {
-            $query1 = "INSERT INTO post_enquiry (id,full_name,email,phone_no,description,status,create_at) values(null,'$full_name','$email','$phone_no','$description','$status','$create_at')";
+            $query1 = "INSERT INTO post_enquiry (id,property_id,full_name,email,phone_no,description,status,create_at) values(null,'$property_id','$full_name','$email','$phone_no','$description','$status','$create_at')";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->rowCount();
@@ -627,10 +627,10 @@ class dataDB
             exit();
         }
     }
-    public static function postEnquirycheck($full_name,$email,$phone_no,$description){
+    public static function postEnquirycheck($property_id,$phone_no,$description){
         $db = Database::getDB();
         try {
-            $query1 = "select * from post_enquiry where full_name='$full_name' and email='$email' and phone_no='$phone_no' and description='$description'";
+            $query1 = "select * from post_enquiry where property_id='$property_id' and phone_no='$phone_no' and description='$description'";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $result1 = $statement1->rowCount();

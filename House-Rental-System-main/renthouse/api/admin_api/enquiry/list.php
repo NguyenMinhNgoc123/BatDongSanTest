@@ -31,6 +31,7 @@ if (empty($token)) {
         }
         $data_enquiry = array(
             'id' => $value['id'],
+            'property_id'=>$value['property_id'],
             'full_name' => $value['full_name'],
             'email' => $value['email'] ,
             'phone_no' => $value['phone_no'],

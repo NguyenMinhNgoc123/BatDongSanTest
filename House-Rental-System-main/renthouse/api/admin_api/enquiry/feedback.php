@@ -30,17 +30,19 @@ if (empty($token)) {
 } else {
     $status = '1';
     $update = dataDB::updateEnquiry($id, $feedback, $status);
+    echo json_encode(array('success' => 'Trả lời phản hồi thành công'));
 
-    $subject = "HomeRent.com";
-    $message = $feedback;
-    $sender = "From: HomeRent@gmail.com";
-    if (mail($checkFeedback['email'], $subject, $message, $sender)) {
-        $info = "phản hồi đến mail thành công";
+    if (isset($checkFeedback['email'])){
+        $subject = "HomeRent.com";
+        $message = $feedback;
+        $sender = "From: HomeRent@gmail.com";
+        if (mail($checkFeedback['email'], $subject, $message, $sender)) {
+            $info = "phản hồi đến mail thành công";
 
-        echo json_encode(array(
-            'success' => $info,
-        ));
+            echo json_encode(array(
+                'success' => $info,
+            ));
+        }
     }
-
 
 }
