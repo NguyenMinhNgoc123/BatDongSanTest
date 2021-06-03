@@ -101,10 +101,13 @@ if (isset($_GET['page']) && isset($_GET['row_per_page'])){
 
         }
     }
-
+    $count_result=0;
+    $count_result=count($list_product);
+    $data['count']= $count_result;
     foreach ($list_product as $key_rs => $value_rs) {
         $property_id = $value_rs['property_id'];
-
+        $count_result +=$key_rs;
+//        $data['count']= $count_result;
         $result = productDB::getPrice($value_rs['estimated_price']);
         $kind_new = productDB::getKindNews($value_rs['kind_id']);;
 

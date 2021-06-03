@@ -82,8 +82,9 @@ if (isset($_GET['page']) && isset($_GET['row_per_page'])) {
 
             }
         }
-
-
+    $count_result=0;
+    $count_result=count($list_product);
+    $data['count']= $count_result;
     foreach ($list_product as $key_rs => $value_rs) {
         $property_id = $value_rs['property_id'];
 
