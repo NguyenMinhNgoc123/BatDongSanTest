@@ -1,8 +1,8 @@
 <?php
 header('Access-Control-Allow-Origin:*');
 header('Access-Control-Allow-Headers:*');
-header('Content-type: application/json;multipart/form-data; charset=utf-8');
-header('Access-Control-Allow-Methods: GET,DELETE,PUT,POST');
+header('Access-Control-Allow-Methods: GET,PUT,DELETE,OPTIONS');
+header('Content-type: application/json; charset=utf-8');
 
 include('../../config/database.php');
 include('../../model/admin/admin_model.php');
