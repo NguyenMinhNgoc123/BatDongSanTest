@@ -35,11 +35,11 @@ class dataDB
             exit();
         }
     }
-    public static function editImg($property_photo_id,$property_id,$p_photo)
+    public static function editImg($property_id,$p_photo)
     {
         $db = Database::getDB();
         try {
-            $query1 = "UPDATE property_photo SET p_photo='$p_photo' WHERE property_id='$property_id' and property_photo_id='$property_photo_id'";
+            $query1 = "UPDATE property_photo SET p_photo='$p_photo' WHERE property_id='$property_id'";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->closeCursor();
@@ -57,6 +57,7 @@ class dataDB
             $statement1 = $db->prepare($query1);
             $statement1->bindParam(':property_id', $property_id);
             $statement1->execute();
+            $statement1->rowCount();
             $result1 = $statement1->fetchAll();
             $statement1->closeCursor();
             return $result1;
@@ -184,6 +185,22 @@ class dataDB
         $db = Database::getDB();
         try {
             $query1 = "DELETE FROM property_photo WHERE property_id=:property_id ";
+            $statement1 = $db->prepare($query1);
+            $statement1->bindParam(':property_id',$property_id);
+            $statement1->execute();
+            $result1  = $statement1->rowCount();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
+    public static function DeleteImageid($property_id,$limit){
+        $db = Database::getDB();
+        try {
+            $query1 = "DELETE FROM property_photo WHERE property_id=:property_id LIMIT {$limit}";
             $statement1 = $db->prepare($query1);
             $statement1->bindParam(':property_id',$property_id);
             $statement1->execute();

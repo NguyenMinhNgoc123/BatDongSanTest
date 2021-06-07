@@ -6,6 +6,7 @@ header('Content-type: application/json; charset=utf-8');
 
 include('../../config/database.php');
 include('../../model/admin/admin_model.php');
+include('../../model/add_pr/add_model.php');
 include('../../model/check_exist/exist_model.php');
 include('../../model/admin/data-admin.php');
 
@@ -24,7 +25,7 @@ $apartment_number = filter_input(INPUT_POST, 'apartment_number');
 $estimated_price = filter_input(INPUT_POST, 'estimated_price');
 $land_area = filter_input(INPUT_POST, 'land_area');
 $description = filter_input(INPUT_POST, 'description');
-$property_photo_id = filter_input(INPUT_POST, 'property_photo_id');
+
 
 //xử lý dấu phẩy đáu chấm
 $estimated_price = str_replace(',', '', $estimated_price);
@@ -65,25 +66,47 @@ if (empty($token)) {
     $check_ptype_id = Check_existDB::checkExistPostType($ptype_id);
     if ($check_chouse_id) {
         if ($ptype_id) {
-            $result =Check_existDB::checkPropertyPhoto($property_photo_id);
-            if ($result > 0){
+            $file = $_FILES['p_photo'];
+            if(isset($file)) {
                 $file = $_FILES['p_photo'];
-                if ($file){
-                    $img_old =$result['p_photo'];
-                    if (is_file('../../../'.$img_old)){
-                        unlink('../../../'.$img_old);
+                if ($file) {
+                    $filename = $file['tmp_name'];//lấy tên của ảnh
+                    $type = $file['type'];
+                    $countImg = dataDB::getImg($property_id);
+
+
+                    if (count($file['name']) > count($countImg) || count($file['name']) == count($countImg)){
+                        dataDB::DeleteImage($property_id);
+                        $filename = $file['tmp_name'];//lấy tên của ảnh
+                        $type = $file['type'];
+                        foreach ($_FILES['p_photo']['tmp_name'] as $key => $value) {
+                            if ($type[$key] == 'image/jpeg' || $type[$key] == 'image/jpg' || $type[$key] == 'image/png') {
+                                $name_img = uniqid() . '.jpg';
+                                $path = '../../owner/product-photo/' . $name_img;
+                                $where = 'owner/product-photo/' . $name_img;
+
+                                move_uploaded_file($value,$path);
+
+                                $p_photo = $where;
+                                productAddDB::getImgage($p_photo, $property_id);
+                            }
+                        }
+                    }else{
+                        dataDB::DeleteImageid($property_id,count($file['name']));
+                        foreach ($_FILES['p_photo']['tmp_name'] as $key => $value) {
+                            if ($type[$key] == 'image/jpeg' || $type[$key] == 'image/jpg' || $type[$key] == 'image/png') {
+                                $name_img = uniqid() . '.jpg';
+                                $path = '../../owner/product-photo/' . $name_img;
+                                $where = 'owner/product-photo/' . $name_img;
+
+                                move_uploaded_file($value, $path);
+
+                                $p_photo = $where;
+                                productAddDB::getImgage($p_photo, $property_id);
+                            }
+                        }
                     }
-                    $c_image= $_FILES['p_photo']['name'];
-                    $photo_name =$_FILES['p_photo']['tmp_name'];
-
-                    $name_img = uniqid() . '.jpg';
-                    $path = '../../owner/product-photo/' . $name_img;
-                    $where = 'owner/product-photo/' . $name_img;
-
-                    move_uploaded_file($photo_name,$path);
-                    $p_photo = $where;
-                    dataDB::editImg($property_photo_id,$property_id,$p_photo);
-                }else{
+                } else {
                     echo json_encode(array('success' => 'lỗi ảnh'));
                 }
             }

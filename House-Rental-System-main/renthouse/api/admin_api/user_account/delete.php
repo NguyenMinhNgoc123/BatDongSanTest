@@ -28,8 +28,8 @@ if (empty($token)) {
     $checkTenant = dataDB::getCheckTenant($tenant_id);
     dataDB::DeleteImage($checkTenant['property_id']);
     dataDB::deleteProductTenant($checkTenant['property_id']);
-    dataDB::deleteTenant($tenant_id);
     dataDB::deleteSession($tenant_id);
+    dataDB::deleteTenant($tenant_id);
     echo json_encode(array('success' => 'Xóa tài khoản thành công'));
 }else {
     echo json_encode(array('errors' => 'id hoặc token không hợp lệ'));
