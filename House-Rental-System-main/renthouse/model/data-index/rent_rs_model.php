@@ -16,6 +16,21 @@ class ProductDBRent {
             exit();
         }
     }
+    public static function getProductsRowCount(){
+        $db = Database::getDB();
+        try {
+            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and ptype_id='2' ORDER BY Kind_id DESC , update_note DESC ";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->rowCount();
+            $statement1->closeCursor();
+            return $result1;
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
     public static function getProductsAdvRent(){
         $db = Database::getDB();
         try {

@@ -15,7 +15,7 @@ include('../../model/tenant/tenant_model.php');
 //---------------------------------------------------------------
 $data = [];
 $data['list'] = [];
-
+$data['count']=[];
 
 if (isset($_GET['page']) && isset($_GET['row_per_page'])){
     $page = $_GET['page'];
@@ -27,7 +27,7 @@ if (isset($_GET['page']) && isset($_GET['row_per_page'])){
     $countPost=ProductDBSell::getProductsCount();
     $result1 = ceil($countPost/$row_per_page);
     $data['total_page'] = $result1;
-
+    $data['count']=ProductDBSell::getProductsRowCount();
     foreach ($list_product as $key_rs => $value_rs) {
         $property_id = $value_rs['property_id'];
 

@@ -10,6 +10,7 @@ include('../../model/data-index/rent_rs_model.php');
 
 $data = [];
 $data['list'] = [];
+$data['count']=[];
 
 if (isset($_GET['page']) && isset($_GET['row_per_page'])) {
     $page = $_GET['page'];
@@ -20,6 +21,7 @@ if (isset($_GET['page']) && isset($_GET['row_per_page'])) {
     $countPost=ProductDBRent::getProductsCount();
     $result1 = ceil($countPost/$row_per_page);
     $data['total_page'] = $result1;
+    $data['count']=ProductDBRent::getProductsRowCount();
 
     foreach ($list_product as $key_rs => $value_rs) {
         $property_id = $value_rs['property_id'];
