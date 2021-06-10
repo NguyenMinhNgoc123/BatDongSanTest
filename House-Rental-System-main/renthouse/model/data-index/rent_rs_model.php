@@ -34,7 +34,7 @@ class ProductDBRent {
     public static function getProductsAdvRent(){
         $db = Database::getDB();
         try {
-            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and ptype_id='2' and kind_id='3'ORDER BY Kind_id DESC , update_note DESC ";
+            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and ptype_id='2' and kind_id='3'or kind_id ='2' ORDER BY Kind_id DESC , update_note DESC ";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->rowCount();

@@ -50,7 +50,7 @@ class ProductDBSell {
     public static function getProductsAdv(){
         $db = Database::getDB();
         try {
-            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and kind_id='3' and ptype_id='1' ORDER BY kind_id DESC , update_note DESC";
+            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and kind_id='3' or kind_id ='2' and ptype_id='1' ORDER BY kind_id DESC , update_note DESC";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->rowCount();
