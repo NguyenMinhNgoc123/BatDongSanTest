@@ -22,7 +22,7 @@ $list_product = ProductDBSell::getProductsAdvRandom();
 $countPost = ProductDBSell::getProductsCount();
 
 foreach ($list_product as $key_rs => $value_rs) {
-    if ($key_rs < 3) {
+//    if ($key_rs < 3) {
         $property_id = $value_rs['property_id'];
 
         $result = productDB::getPrice($value_rs['estimated_price']);
@@ -65,7 +65,7 @@ foreach ($list_product as $key_rs => $value_rs) {
             'kind_new' => $kind_new['name']
         );
         array_push($data['list'], $data_product);
-    }
+//    }
 
 }
 echo json_encode($data, JSON_UNESCAPED_UNICODE);

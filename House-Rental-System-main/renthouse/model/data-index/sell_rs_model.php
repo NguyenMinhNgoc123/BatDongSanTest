@@ -34,7 +34,7 @@ class ProductDBSell {
     public static function getProductsAdvRandom(){
         $db = Database::getDB();
         try {
-            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and kind_id='3' ORDER BY kind_id DESC , update_note DESC";
+            $query1 = "SELECT * FROM add_property WHERE update_note < NOW() and note = '1' and kind_id='3' ORDER BY kind_id DESC , RAND () LIMIT 3";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->rowCount();
