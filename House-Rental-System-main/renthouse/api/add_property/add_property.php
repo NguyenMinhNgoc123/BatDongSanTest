@@ -66,6 +66,7 @@ if (empty($token)) {
 
         if (isset($file['name'][2])) {
             $tenant_id = $checkToken['tenant_id'];
+
 //print_r($_FILES['p_photo']);die();
             $add_apartment = productAddDB::CreateAddProducts($property_id, $tenant_id,$kind_id, $caption, $chouse_id, $ptype_id,
                 $city_id, $district_id, $ward_id, $street, $apartment_number, $estimated_price, $land_area, $description);
