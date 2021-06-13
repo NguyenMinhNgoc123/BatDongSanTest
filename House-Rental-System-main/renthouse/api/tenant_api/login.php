@@ -23,7 +23,7 @@ foreach ($payment as $key => $value) {
 
         if ($time_expires == 0) {
             if ($unlink > 0) {
-                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' hết hạn đã bị xóa do không thanh toán';
+//                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' hết hạn đã bị xóa do không thanh toán';
                 $type = '1';
                 $note = '0';
                 foreach ($unlink as $key1 => $value1) {
@@ -34,7 +34,7 @@ foreach ($payment as $key => $value) {
                 }
                 $end_date = date('Y/m/d H:i:s', strtotime('+ 3 days'));
                 dataDB::deleteNotifyNotType($value['property_id']);
-                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
+//                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
                 dataDB::DeleteImage($value['property_id']);
                 dataDB::DeletePayment($value['property_id']);
                 dataDB::deleteProduct($value['property_id'], $note = '0');

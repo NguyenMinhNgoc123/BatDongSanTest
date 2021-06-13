@@ -34,7 +34,7 @@ if (empty($token)) {
         }
         $image = tenantDB::DeleteImage($property_id);
         tenantDB::DeletePayment($property_id);
-
+        tenantDB::DeleteNotify($property_id, $checkToken['tenant_id']);
             $products = tenantDB::DeleteProducts($property_id, $tenant_id);
             echo json_encode(array('success' => 'xóa thành công'));
 

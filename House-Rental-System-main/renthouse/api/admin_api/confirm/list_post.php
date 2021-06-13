@@ -64,7 +64,7 @@ if (empty($token)) {
             $post_price = '';
         }
         //$result_img = dataDB::getImg($property_id);
-
+        $kind_new = productDB::getKindNews($value['kind_id']);
         $data_product = array(
             'property_id' => $property_id,
             'post_price' => $post_price,
@@ -80,8 +80,10 @@ if (empty($token)) {
             'ptype_id'=>$value['ptype_id'],
             'ptype_name' => $post_type_name['ptypeName'],
             'land_area' => $land_area,
-            'estimated_price' => $value['estimated_price'],
+            'estimated_price' => $result,
             //'description' => $value['description'],
+            'kind_id'=>$value['kind_id'],
+            'kind_name'=>$kind_new['name'],
             'day_number'=>$status['day_number'],
             'payment'=>$payment['price'],
             'payment_status'=>$status_pm,

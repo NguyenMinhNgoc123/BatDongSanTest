@@ -392,6 +392,38 @@ class tenantDB
             exit();
         }
     }
+    public static function getNotifyProperty($property_id,$tenant_id)
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from notify where property_id ='$property_id' and tenant_id ='$tenant_id' ";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
+    public static function DeleteNotify($property_id,$tenant_id)
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "DELETE from notify where property_id ='$property_id' and tenant_id ='$tenant_id' ";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $result1 = $statement1->rowCount();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
     public static function continueProduct($property_id,$note,$update_note){
         $db = Database::getDB();
         try {

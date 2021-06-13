@@ -59,7 +59,12 @@ if (empty($token)) {
         //xử lý giờ
         $time = productDB::getTime($value['create_at']);
 
-        //--xử lý phòng bedroom
+        $notify = tenantDB::getNotifyProperty($property_id,$checkToken['tenant_id']);
+        if ($notify){
+            $result1= $notify['comment'];
+        }else{
+            $result1=null;
+        }
 
         $chouse_name = productDB::getPropertyType($value['chouse_id']);
         $post_type_name = productDB::getProductPtype($value['ptype_id']);
@@ -76,7 +81,8 @@ if (empty($token)) {
             'land_area' => $land_area,
             'estimated_price' => $result,
             'post_time' => $time,
-            'status' => $value['note']
+            'status' => $value['note'],
+            'notify'=>$result1,
         );
         array_push($data['list'], $data_product);
 

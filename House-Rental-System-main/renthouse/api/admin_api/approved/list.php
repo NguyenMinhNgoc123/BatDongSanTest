@@ -58,6 +58,8 @@ if (empty($token)) {
         $post_type_name = productDB::getProductPtype($value['ptype_id']);
         $land_area = $value['land_area'];
         $status = dataDB::selectPayment($value['property_id']);
+        $kind_new = productDB::getKindNews($value['kind_id']);
+
         if ($status > 0 ){
             $post_price=productDB::getPrice($status['price']);
         }else{
@@ -80,9 +82,11 @@ if (empty($token)) {
             'ptype_id'=>$value['ptype_id'],
             'ptype_name' => $post_type_name['ptypeName'],
             'land_area' => $land_area,
-            'estimated_price' => $value['estimated_price'],
+            'estimated_price' => $result,
             //'description' => $value['description'],
             //'image' => $result_img,
+            'kind_id'=>$value['kind_id'],
+            'kind_new'=>$kind_new['name'],
             'payment'=>$payment['price'],
             'payment_status'=>$status_pm,
             'day_number'=>$payment['day_number'],

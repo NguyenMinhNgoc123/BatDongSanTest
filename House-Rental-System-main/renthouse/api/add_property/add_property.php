@@ -8,7 +8,8 @@ include('../../config/database.php');
 include('../../model/add_pr/add_model.php');
 include('../../model/check_exist/exist_model.php');
 include('../../model/data-index/public_model.php');
-
+include('../../model/admin/admin_model.php');
+include('../../model/admin/data-admin.php');
 
 include ('../tenant_api/check_token.php');
 
@@ -120,6 +121,21 @@ if (empty($token)) {
             }else{
                 $tp = 'NT';
             }
+            $paymentNotify =dataDB::getPaymentProperty($last_id);
+
+            $time_expires = dataDB::getTimeExpires($paymentNotify['status_expires']);
+
+            if ($time_expires !=0){
+                $comment = 'Sản phẩm có mã là ' . $last_id . ' Còn ' . $time_expires . '. Hãy thanh toán để bài viết được duyệt nhé!';
+                $type = '2';
+                $checkNotify = AdminDB::checkNotify($tenant_id, $last_id, $type);
+                if ($checkNotify > 0) {
+                    dataDB::updateNotify($tenant_id,$last_id, $comment, $type);
+                } else {
+                    dataDB::insertNotify($tenant_id, $last_id, $comment, $type);
+                }
+            }
+
         }
         echo json_encode(array(
             'rank'=>$rank,

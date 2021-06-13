@@ -334,6 +334,23 @@ class dataDB
             exit();
         }
     }
+    public static function getPaymentProperty($property_id)
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from payment where property_id='$property_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetch();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
     public static function getTimeExpires($create_time)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
@@ -349,16 +366,17 @@ class dataDB
 
         //echo $years." năm, ".$months." tháng, ".$days." ngày ".$hours." giờ".$minutes." phút, ".$seconds." giây";
         if ((strtotime($date2) - strtotime($date1)) > 0){
-            if ($days < 3){
+            if ($days <= 3){
                 if ($days > 0 ){
-                    $time = $days." ngày ".$hours." giờ ".$minutes." phút ".$seconds." giây";
+                    $time = $days." ngày ".$hours." giờ ".$minutes." phút ";
                 }else if ($hours > 0){
-                    $time = $hours." giờ ".$minutes." phút ".$seconds." giây";
-                }else if ($minutes > 0){
-                    $time = $minutes." phút ".$seconds." giây";
-                }else{
-                    $time = $seconds." giây";
+                    $time = $hours." giờ ".$minutes." phút ";
+                }else {
+                    $time = $minutes." phút ";
                 }
+//                else{
+//                    $time = $seconds." giây";
+//                }
             }  else{
                 $time = 0;
             }
@@ -384,14 +402,15 @@ class dataDB
         if ((strtotime($date2) - strtotime($date1)) > 0) {
             if ($months == 0) {
                 if ($days > 0) {
-                    $time = $days . " ngày " . $hours . " giờ " . $minutes . " phút " . $seconds . " giây";
+                    $time = $days . " ngày " . $hours . " giờ " . $minutes . " phút " ;
                 } else if ($hours > 0) {
-                    $time = $hours . " giờ " . $minutes . " phút " . $seconds . " giây";
-                } else if ($minutes > 0) {
-                    $time = $minutes . " phút " . $seconds . " giây";
-                } else {
-                    $time = $seconds . " giây";
+                    $time = $hours . " giờ " . $minutes . " phút " ;
+                } else  {
+                    $time = $minutes . " phút " ;
                 }
+//                else {
+//                    $time = $seconds . " giây";
+//                }
             } else {
                 $time = 0;
             }
