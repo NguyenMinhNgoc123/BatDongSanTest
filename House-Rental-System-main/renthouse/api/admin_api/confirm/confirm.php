@@ -116,72 +116,72 @@ if (empty($token)) {
     echo json_encode(array('errors' => 'id hoặc token không hợp lệ'));
 }
 
-
-$payment = dataDB::getPayment();
-
-foreach ($payment as $key => $value) {
-    $unlink = dataDB::getImg($value['property_id']);
-    if ($value['status'] == 'unpaid') {
-        $time_expires = dataDB::getTimeExpires($value['status_expires']);
-
-        if ($time_expires == 0) {
-            if ($unlink > 0) {
-//                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' hết hạn đã bị xóa do không thanh toán';
-                $type = '1';
-                $note = '0';
-                foreach ($unlink as $key1 => $value1) {
-                    //print_r('../../'.$value['p_photo']);
-                    if (is_file('../../' . $value1['p_photo'])) {
-                        unlink('../../' . $value1['p_photo']);
-                    }
-                }
-                $end_date = date('Y/m/d H:i:s', strtotime('+ 3 days'));
-                dataDB::deleteNotifyNotType($value['property_id']);
+//
+//$payment = dataDB::getPayment();
+//
+//foreach ($payment as $key => $value) {
+//    $unlink = dataDB::getImg($value['property_id']);
+//    if ($value['status'] == 'unpaid') {
+//        $time_expires = dataDB::getTimeExpires($value['status_expires']);
+//
+//        if ($time_expires == 0) {
+//            if ($unlink > 0) {
+////                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' hết hạn đã bị xóa do không thanh toán';
+//                $type = '1';
+//                $note = '0';
+//                foreach ($unlink as $key1 => $value1) {
+//                    //print_r('../../'.$value['p_photo']);
+//                    if (is_file('../../' . $value1['p_photo'])) {
+//                        unlink('../../' . $value1['p_photo']);
+//                    }
+//                }
+//                $end_date = date('Y/m/d H:i:s', strtotime('+ 3 days'));
+//                dataDB::deleteNotifyNotType($value['property_id']);
+////                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
+//                dataDB::DeleteImage($value['property_id']);
+//                dataDB::DeletePayment($value['property_id']);
+//                dataDB::deleteProduct($value['property_id'], $note = '0');
+//                dataDB::deleteProduct($value['property_id'], $note = '2');
+//            }
+//        } else {
+//            $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires . '. Bài viết sẽ tự động xóa sau 3 ngày!';
+//            $type = '2';
+//            $checkNotify = AdminDB::checkNotify($value['tenant_id'], $value['property_id'], $type);
+//            if ($checkNotify > 0) {
+//                dataDB::updateNotify($value['tenant_id'], $value['property_id'], $comment, $type);
+//            } else {
 //                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
-                dataDB::DeleteImage($value['property_id']);
-                dataDB::DeletePayment($value['property_id']);
-                dataDB::deleteProduct($value['property_id'], $note = '0');
-                dataDB::deleteProduct($value['property_id'], $note = '2');
-            }
-        } else {
-            $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires . '. Bài viết sẽ tự động xóa sau 3 ngày!';
-            $type = '2';
-            $checkNotify = AdminDB::checkNotify($value['tenant_id'], $value['property_id'], $type);
-            if ($checkNotify > 0) {
-                dataDB::updateNotify($value['tenant_id'], $value['property_id'], $comment, $type);
-            } else {
-                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
-            }
-        }
-    } else {
-        if ($value['status'] == 'paid') {
-            $time_expires_paid = dataDB::getTimeExpiresPaid($value['end_date']);
-//            print_r($time_expires_paid);die();
-            if ($time_expires_paid == 0) {
-                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' đã hết hạn bạn có muốn tiếp tục ?';
-                $note = '2';
-                $status = 'unpaid';
-                $type = '3';
-                $start_status = date('Y/m/d H:i:s');
-                $status_expires = date('Y/m/d H:i:s', strtotime('+ 3 days'));
-                $start_date = '0000-00-00 00:00:00';
-                $end_date = '0000-00-00 00:00:00';
-
-                dataDB::deleteNotifyy($value['property_id'],'4');
-                dataDB::updateExpiresProduct($value['property_id'], $note);
-                dataDB::updateExpires($value['property_id'], $status, $start_date, $end_date, $start_status, $status_expires);
-                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
-            } else {
-                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires_paid;
-                $type = '4';
-                $checkNotify = AdminDB::checkNotify($value['tenant_id'], $value['property_id'], $type);
-                if ($checkNotify > 0) {
-                    dataDB::updateNotify($value['tenant_id'], $value['property_id'], $comment, $type);
-                } else {
-                    dataDB::deleteNotifyy($value['property_id'],'2');
-                    dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
-                }
-            }
-        }
-    }
-}
+//            }
+//        }
+//    } else {
+//        if ($value['status'] == 'paid') {
+//            $time_expires_paid = dataDB::getTimeExpiresPaid($value['end_date']);
+////            print_r($time_expires_paid);die();
+//            if ($time_expires_paid == 0) {
+//                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' đã hết hạn bạn có muốn tiếp tục ?';
+//                $note = '2';
+//                $status = 'unpaid';
+//                $type = '3';
+//                $start_status = date('Y/m/d H:i:s');
+//                $status_expires = date('Y/m/d H:i:s', strtotime('+ 3 days'));
+//                $start_date = '0000-00-00 00:00:00';
+//                $end_date = '0000-00-00 00:00:00';
+//
+//                dataDB::deleteNotifyy($value['property_id'],'4');
+//                dataDB::updateExpiresProduct($value['property_id'], $note);
+//                dataDB::updateExpires($value['property_id'], $status, $start_date, $end_date, $start_status, $status_expires);
+//                dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
+//            } else {
+//                $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires_paid;
+//                $type = '4';
+//                $checkNotify = AdminDB::checkNotify($value['tenant_id'], $value['property_id'], $type);
+//                if ($checkNotify > 0) {
+//                    dataDB::updateNotify($value['tenant_id'], $value['property_id'], $comment, $type);
+//                } else {
+//                    dataDB::deleteNotifyy($value['property_id'],'2');
+//                    dataDB::insertNotify($value['tenant_id'], $value['property_id'], $comment, $type);
+//                }
+//            }
+//        }
+//    }
+//}
