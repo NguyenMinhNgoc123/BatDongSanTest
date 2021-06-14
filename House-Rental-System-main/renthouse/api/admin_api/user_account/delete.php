@@ -29,6 +29,7 @@ if (empty($token)) {
     dataDB::DeleteImage($checkTenant['property_id']);
     dataDB::deleteProductTenant($checkTenant['property_id']);
     dataDB::deleteSession($tenant_id);
+    dataDB::deletePoten($tenant_id);
     dataDB::deleteTenant($tenant_id);
     echo json_encode(array('success' => 'Xóa tài khoản thành công'));
 }else {

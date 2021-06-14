@@ -510,6 +510,19 @@ class dataDB
             exit();
         }
     }
+    public static function deletePoten($tenant_id){
+        $db = Database::getDB();
+        try {
+            $query1 = "DELETE FROM potential_customers WHERE tenant_id='$tenant_id'";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->closeCursor();
+        }catch (PDOException $exception){
+            $error_message = $exception->getMessage();
+            echo 'error connection'.$error_message;
+            exit();
+        }
+    }
     public static function deleteAccountNotify($tenant_id){
         $db = Database::getDB();
         try {
