@@ -35,7 +35,7 @@ foreach ($payment as $key => $value) {
                 dataDB::deleteProduct($value['property_id'], $note = '0');
             }
         } else {
-            $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires . '. Hãy thanh toán để bài viết được duyệt nhé!';
+            $comment = 'Sản phẩm có mã là ' . $value['property_id'] . ' Còn ' . $time_expires . '. Bài viết sẽ tự động xóa sau 3 ngày!';
             $type = '2';
             $checkNotify = AdminDB::checkNotify($value['tenant_id'], $value['property_id'], $type);
             if ($checkNotify > 0) {

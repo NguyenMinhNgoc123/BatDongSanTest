@@ -43,7 +43,7 @@ if (empty($token)) {
         $time_expires = dataDB::getTimeExpires($status_expires);
 
 
-        $comment = 'Sản phẩm có mã là ' . $property_id . ' Còn ' . $time_expires . '. Hãy thanh toán để bài viết được duyệt nhé!';
+        $comment = 'Sản phẩm có mã là ' . $property_id . ' Còn ' . $time_expires . '. Bài viết sẽ tự động xóa sau 3 ngày!';
         $type = '2';
         dataDB::insertNotify($checkToken['tenant_id'], $property_id, $comment, $type);
 
