@@ -5,7 +5,24 @@ class dataDB
     {
         $db = Database::getDB();
         try {
-            $query1 = "select * from add_property where note='0'";
+            $query1 = "select * from add_property where note='0'  ";
+            $statement1 = $db->prepare($query1);
+            $statement1->execute();
+            $statement1->rowCount();
+            $result1 = $statement1->fetchAll();
+            $statement1->closeCursor();
+            return $result1;
+        } catch (PDOException $exception) {
+            $error_message = $exception->getMessage();
+            echo 'error connection' . $error_message;
+            exit();
+        }
+    }
+    public static function getProductslist()
+    {
+        $db = Database::getDB();
+        try {
+            $query1 = "select * from add_property where note='0' order by create_at asc";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->rowCount();
