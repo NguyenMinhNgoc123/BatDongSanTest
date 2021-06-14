@@ -22,7 +22,7 @@ class dataDB
     {
         $db = Database::getDB();
         try {
-            $query1 = "select * from add_property where note='0' order by create_at asc";
+            $query1 = "select * from add_property where note='0' order by create_at desc";
             $statement1 = $db->prepare($query1);
             $statement1->execute();
             $statement1->rowCount();
